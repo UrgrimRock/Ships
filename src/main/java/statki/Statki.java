@@ -3,11 +3,11 @@ package statki;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Testy {
+public class Statki {
     Random rand = new Random();
     Scanner scanner = new Scanner(System.in);
     int length = 10;
-    int sheaps = 2;
+    int sheaps = 4;
     String statek = "$ ";
     String hit = "X ";
     String miss = "O ";
@@ -15,7 +15,6 @@ public class Testy {
     String [][] realBoard = new String[length][length];
     String [][] seeBoard = new String[length][length];
     public  void Display(){
-
         for (int i = 0; i < length; i++) {
             for (int j = 0; j <length; j++) {
                 realBoard[i][j] = hidden;
@@ -25,10 +24,30 @@ public class Testy {
         for (int i = 0; i < sheaps;) {
             int dupa1 = rand.nextInt(10);
             int dupa2 = rand.nextInt(10);
+            int side = rand.nextInt(2);
             if (!realBoard[dupa1][dupa2].equals(statek)){
                 realBoard[dupa1][dupa2] = statek;
+                if (dupa1+1<length){
+                    if (side==2)
+                        realBoard[dupa1][dupa2+1] = statek;
+                    else
+                        realBoard[dupa1+1][dupa2] = statek;
+                }if (dupa2+1<length){
+                    if (side==2)
+                        realBoard[dupa1][dupa2+1] = statek;
+                    else
+                        realBoard[dupa1+1][dupa2] = statek;
+                }
+                else if (dupa2+1>length)
+                    side = 1;
+                if (side==1) {
+                    realBoard[dupa1+1][dupa2] = statek;
+                }else if (side==2)
+                    realBoard[dupa1][dupa2+1] = statek;
+
                 i++;
             }
+
         }
         boolean game = true;
         while(game){
@@ -60,7 +79,6 @@ public class Testy {
             }
             else if (menuChoice==2){
                 displayReal();
-
             }
             else if (menuChoice==3){
                 game=false;
@@ -82,7 +100,5 @@ public class Testy {
             }
             System.out.println();
         }
-
     }
-
 }
